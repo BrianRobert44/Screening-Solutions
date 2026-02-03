@@ -68,7 +68,7 @@ export default function Hero() {
 function Feature({ icon: Icon, text }) {
   return (
     <div className="flex items-center gap-3 text-white/90">
-      <div className="flex-shrink-0 bg-[#2EC4B6] rounded-full p-1">
+      <div className="shrink-0 bg-[#2EC4B6] rounded-full p-1">
         <Icon className="h-4 w-4 text-[#0B1F2A]" />
       </div>
       <span className="text-sm font-semibold tracking-wide uppercase">{text}</span>
