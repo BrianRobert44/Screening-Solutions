@@ -68,7 +68,7 @@ const Navbar = () => {
 
           <a
             href="#contact"
-            className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-teal-600 to-teal-500 text-white font-bold shadow-lg shadow-teal-600/20 hover:shadow-teal-600/40 hover:-translate-y-0.5 transition-all active:scale-95"
+            className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-linear-to-r from-teal-600 to-teal-500 text-white font-bold shadow-lg shadow-teal-600/20 hover:shadow-teal-600/40 hover:-translate-y-0.5 transition-all active:scale-95"
           >
             <MessageSquare size={18} />
             <span>Talk to our Team</span>

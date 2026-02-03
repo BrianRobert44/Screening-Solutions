@@ -39,7 +39,7 @@ export default function CircuitPurpose() {
                   strokeWidth="2"
                   strokeDasharray="1000"
                   strokeDashoffset="1000"
-                  className="transition-all duration-[2000ms] ease-in-out group-hover:stroke-dashoffset-0 opacity-20 group-hover:opacity-100"
+                  className="transition-all duration-2000 ease-in-out group-hover:stroke-dashoffset-0 opacity-20 group-hover:opacity-100"
                 />
               </svg>
 
