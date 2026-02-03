@@ -1,6 +1,6 @@
 import React from "react";
 import { ShieldCheck, UserCheck, FileSearch, Clock, ArrowRight } from "lucide-react";
-import {Button} from "../Components/ui/Button.jsx";
+import {Button} from "./ui/Button";
 import heroimage from "../assets/logo/Heroimage.png";
 
 export default function Hero() {
