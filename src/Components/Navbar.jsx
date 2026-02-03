@@ -13,6 +13,9 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/logos/image.png";
 
+import { Link } from 'react-router-dom'
+
+
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -24,11 +27,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/", icon: Home },
-    { name: "About", href: "#about", icon: Building2 },
-    { name: "Services", href: "#services", icon: Briefcase },
-    { name: "Blog", href: "#blog", icon: FileText },
-    { name: "Careers", href: "#careers", icon: Users },
+    { name: "Home", to: "/", icon: Home },
+    { name: "About", to: "/about", icon: Building2 },
+    { name: "Services", to: "#services", icon: Briefcase },
+    { name: "Blog", to: "#blog", icon: FileText },
+    { name: "Careers", to: "#careers", icon: Users },
   ];
 
   return (
@@ -51,14 +54,14 @@ const Navbar = () => {
 
         <nav className="hidden lg:flex items-center gap-2 font-sans ">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
-              href={link.href}
+              to={link.to}
               className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-teal-600 rounded-full transition-all duration-200 hover:bg-slate-50 group"
             >
               <link.icon size={16} className="text-slate-400 group-hover:text-teal-600 transition-colors" />
               {link.name}
-            </a>
+            </Link>
           ))}
 
           <div className="w-px h-6 bg-slate-200 mx-4" />
