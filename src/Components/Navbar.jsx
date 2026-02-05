@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   Menu,
   X,
-  ChevronDown,
   Home,
   Briefcase,
   Building2,
@@ -11,10 +10,8 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import logo from "../assets/logos/image.png";
-
-import { Link } from 'react-router-dom'
-
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,95 +26,101 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", to: "/", icon: Home },
     { name: "About", to: "/about", icon: Building2 },
-    { name: "Services", to: "#services", icon: Briefcase },
-    { name: "Blog", to: "#blog", icon: FileText },
-    { name: "Careers", to: "#careers", icon: Users },
+    { name: "Services", to: "/Service", icon: Briefcase },
+    { name: "Blog", to: "/Blog", icon: FileText },
+    { name: "Careers", to: "/Careers", icon: Users },
   ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300  ${
-        scrolled 
-          ? "bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-slate-100 py-2" 
-          : "bg-white py-4"
-      }`}
-    >
-      <div className="   max-w-7xl mx-auto px-6 flex items-center justify-between">
-        
-        <a href="/" className="flex items-center gap-3">
-          <img
-            src={logo}
-            alt="Company Logo"
-            className="h-10 md:h-14 w-auto object-contain "
-          />
-        </a>
+    <>
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/90 backdrop-blur-md shadow border-b border-slate-100 py-2"
+            : "bg-white py-4"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3">
+            <img src={logo} alt="Logo" className="h-10 md:h-14" />
+          </Link>
 
-        <nav className="hidden lg:flex items-center gap-2 font-sans ">
-          {navLinks.map((link) => (
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.to}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-teal-600 rounded-full hover:bg-slate-50 transition"
+              >
+                <link.icon size={16} />
+                {link.name}
+              </Link>
+            ))}
+
             <Link
-              key={link.name}
-              to={link.to}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-teal-600 rounded-full transition-all duration-200 hover:bg-slate-50 group"
+              to="/TalkToOurTeam"
+              className="ml-4 inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-teal-600 to-teal-500 text-white font-bold shadow hover:-translate-y-0.5 transition"
             >
-              <link.icon size={16} className="text-slate-400 group-hover:text-teal-600 transition-colors" />
-              {link.name}
+              <MessageSquare size={18} />
+              Talk to our Team
             </Link>
-          ))}
+          </nav>
 
-          <div className="w-px h-6 bg-slate-200 mx-4" />
-
-          <a
-            href="#contact"
-            className="relative inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-linear-to-r from-teal-600 to-teal-500 text-white font-bold shadow-lg shadow-teal-600/20 hover:shadow-teal-600/40 hover:-translate-y-0.5 transition-all active:scale-95"
+          {/* Mobile Toggle */}
+          <button
+            className="lg:hidden p-2 rounded-xl hover:bg-slate-100"
+            onClick={() => setIsMobileMenuOpen(true)}
           >
-            <MessageSquare size={18} />
-            <span>Talk to our Team</span>
-          </a>
-        </nav>
+            <Menu size={28} />
+          </button>
+        </div>
+      </header>
 
-        <button
-          className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
+          <motion.div
+            key="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-100 shadow-2xl overflow-hidden"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[999] bg-white"
           >
-            <div className="px-6 py-8 flex flex-col gap-4">
+            <div className="flex items-center justify-between px-6 py-4 border-b">
+              <img src={logo} className="h-10" />
+              <button onClick={() => setIsMobileMenuOpen(false)}>
+                <X size={28} />
+              </button>
+            </div>
+
+            <div className="px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a 
+                <Link
                   key={link.name}
-                  href={link.href}
-                  className="flex items-center gap-4 p-4 text-slate-700 hover:text-teal-600 hover:bg-teal-50/50 rounded-2xl text-lg font-bold transition-all"
+                  to={link.to}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-4 p-4 rounded-2xl text-lg font-semibold hover:bg-teal-50"
                 >
-                  <div className="p-2 bg-slate-50 rounded-lg group-hover:bg-teal-100">
-                    <link.icon size={20} className="text-slate-500" />
-                  </div>
+                  <link.icon size={22} />
                   {link.name}
-                </a>
+                </Link>
               ))}
-              <a
-                href="#contact"
-                className="mt-4 flex items-center justify-center gap-3 bg-teal-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl shadow-teal-600/20"
+
+              <Link
+                to="/TalkToOurTeam"
                 onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-4 flex items-center justify-center gap-3 bg-teal-600 text-white py-4 rounded-2xl font-bold"
               >
                 <MessageSquare size={22} />
                 Talk to our Team
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 };
 

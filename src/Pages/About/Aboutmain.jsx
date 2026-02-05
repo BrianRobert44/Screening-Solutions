@@ -86,14 +86,13 @@ const ServiceCard = ({ service, index }) => {
         </ul>
       </div>
 
-      {/* Image Side */}
       <div className="flex-1 w-full relative group">
         <div className="absolute -inset-4 bg-[#2EC4B6]/20 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 aspect-video lg:aspect-square shadow-2xl">
           <img 
             src={service.image} 
             alt={service.title}
-            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+            className="w-full h-full object-cover grayscale-0 md:grayscale md:hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
           />
           <div className="absolute top-4 right-4 bg-[#0B1F2A]/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
             <p className="text-[10px] font-bold text-[#2EC4B6] uppercase tracking-widest">{service.badge}</p>
@@ -107,7 +106,6 @@ const ServiceCard = ({ service, index }) => {
 export default function RohilServices() {
   return (
     <section className="bg-[#0B1F2A] py-24 px-6 relative overflow-hidden">
-      {/* Background Decorative Element */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2EC4B6]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
       
       <div className="max-w-7xl mx-auto">

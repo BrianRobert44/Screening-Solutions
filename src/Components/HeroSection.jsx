@@ -2,6 +2,7 @@ import React from "react";
 import { ShieldCheck, UserCheck, FileSearch, Clock, ArrowRight } from "lucide-react";
 import {Button} from "./ui/Button";
 import heroimage from "../assets/logo/Heroimage.png";
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
@@ -51,6 +52,8 @@ export default function Hero() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
 
+
+           <Link  to='/TalkToOurTeam'>
             <Button
               size="lg"
               variant="outline"
@@ -58,6 +61,7 @@ export default function Hero() {
             >
               Talk to Our Experts
             </Button>
+            </Link>
           </div>
         </div>
       </div>

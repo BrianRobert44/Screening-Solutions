@@ -1,109 +1,129 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { 
-  Briefcase, Shield, Video, MessageSquare, 
-  Calendar, Users, PenTool, IdCard, GraduationCap, ClipboardCheck 
+import {
+  Briefcase, Shield, Video, MessageSquare,
+  Calendar, Users, PenTool, IdCard, GraduationCap, ClipboardCheck
 } from "lucide-react";
-import logo from '../assets/logos/image.png'
+import logo from "../assets/logos/image.png";
 
+/* BASE orbit layout (desktop) */
 const integrations = [
-  { label: "Bulk Hiring", icon: Briefcase, x: -160, y: -180 },
-  { label: "Background check", icon: Shield, x: -250, y: -60 },
-  { label: "Video Interview", icon: Video, x: -280, y: 80 },
-  { label: "Policy Management", icon: MessageSquare, x: -200, y: 190 },
-  { label: "Calendar", icon: Calendar, x: -60, y: 250 },
-  { label: "CRM", icon: Users, x: 180, y: -190 },
-  { label: "E-signature", icon: PenTool, x: 260, y: -80 },
-  { label: "Identity Verification", icon: IdCard, x: 290, y: 60 },
-  { label: "eHR", icon: GraduationCap, x: 220, y: 180 },
-  { label: "Assessment", icon: ClipboardCheck, x: 70, y: 260 },
+  { label: "Bulk Hiring", icon: Briefcase, angle: 230 },
+  { label: "Background Check", icon: Shield, angle: 200 },
+  { label: "Video Interview", icon: Video, angle: 160 },
+  { label: "Policy Management", icon: MessageSquare, angle: 130 },
+  { label: "Calendar", icon: Calendar, angle: 90 },
+  { label: "CRM", icon: Users, angle: 20 },
+  { label: "E-signature", icon: PenTool, angle: -10 },
+  { label: "Identity Verification", icon: IdCard, angle: -50 },
+  { label: "eHR", icon: GraduationCap, angle: -90 },
+  { label: "Assessment", icon: ClipboardCheck, angle: 50 },
 ];
+
+const polarToCartesian = (angle, radius) => {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    x: Math.cos(rad) * radius,
+    y: Math.sin(rad) * radius,
+  };
+};
 
 export default function IntegrationOrbit() {
   return (
-    <section className="py-32 px-6 bg-[#0B1F2A] overflow-hidden flex flex-col items-center">
-      <div className="max-w-4xl text-center mb-20">
-        <motion.h2 
+    <section className="py-24 md:py-32 px-6 bg-[#0B1F2A] overflow-hidden flex flex-col items-center">
+      
+      <div className="max-w-4xl text-center mb-16">
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-bold text-white tracking-tight"
+          className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight"
         >
           Seamless <span className="text-[#2EC4B6]">Integrations</span>
         </motion.h2>
       </div>
 
-     
-      <div className="relative flex items-center justify-center h-130 w-full">
+      <div className="relative flex items-center justify-center w-full h-[420px] md:h-[520px] lg:h-[640px]">
         
-        {/* The Central Orb (The Source) */}
-        <motion.div 
+        <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 100, damping: 15 }}
-          className="relative z-20 w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#0B1F2A] border-2 border-[#2EC4B6] flex items-center justify-center shadow-[0_0_50px_rgba(46,196,182,0.4)]"
+          transition={{ type: "spring", stiffness: 100, damping: 14 }}
+          className="relative z-20 w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full 
+                     bg-[#0B1F2A] border-2 border-[#2EC4B6]
+                     flex items-center justify-center
+                     shadow-[0_0_50px_rgba(46,196,182,0.4)]"
         >
-          <div className="absolute inset-0 rounded-full bg-white " />
-          <span className="relative z-10 w-full h-full flex items-center justify-center p-6">
-          <img 
-            src={logo} 
-            alt="Logo" 
-            className="w-full h-full object-contain filter brightness-110" 
+          <div className="absolute inset-0 rounded-full bg-white" />
+          <img
+            src={logo}
+            alt="Logo"
+            className="relative z-10 w-16 md:w-20 lg:w-24 object-contain"
           />
-        </span>
-          
+
           {[1, 2, 3].map((i) => (
             <motion.div
               key={i}
               className="absolute inset-0 rounded-full border border-[#2EC4B6]/30"
-              initial={{ scale: 1, opacity: 0.5 }}
               animate={{ scale: 2.5, opacity: 0 }}
-              transition={{ repeat: Infinity, duration: 3, delay: i, ease: "easeOut" }}
+              transition={{
+                repeat: Infinity,
+                duration: 3,
+                delay: i,
+                ease: "easeOut",
+              }}
             />
           ))}
         </motion.div>
 
-        {integrations.map((item, i) => (
-          <motion.div
-            key={i}
-            custom={i}
-            initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-            whileInView={{ 
-              x: item.x, 
-              y: item.y, 
-              scale: 1, 
-              opacity: 1 
-            }}
-            viewport={{ once: true }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 50, 
-              damping: 12, 
-              delay: i * 0.1 
-            }}
-            className="absolute z-30"
-          >
-           
+        {integrations.map((item, i) => {
+          const radius =
+            typeof window !== "undefined" && window.innerWidth < 640
+              ? 130
+              : typeof window !== "undefined" && window.innerWidth < 1024
+              ? 180
+              : 260;
+
+          const { x, y } = polarToCartesian(item.angle, radius);
+
+          return (
             <motion.div
-              animate={{ 
-                y: [0, -12, 0],
+              key={i}
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1, x, y }}
+              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                stiffness: 50,
+                damping: 12,
+                delay: i * 0.08,
               }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: i * 0.2 
-              }}
-              className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-[#0F2E3C]/80 border border-white/10 backdrop-blur-md shadow-2xl hover:border-[#2EC4B6] hover:bg-[#2EC4B6]/10 transition-colors cursor-pointer group"
+              className="absolute z-30"
             >
-              <div className="bg-[#2EC4B6]/20 p-2 rounded-lg group-hover:bg-[#2EC4B6] transition-colors">
-                <item.icon className="w-4 h-4 text-[#2EC4B6] group-hover:text-[#0B1F2A]" />
-              </div>
-              <span className="text-white/90 text-sm  font-semibold whitespace-nowrap">
-                {item.label}
-              </span>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.15,
+                }}
+                className="flex items-center gap-2 md:gap-3
+                           px-3 py-2 md:px-4
+                           rounded-xl md:rounded-2xl
+                           bg-[#0F2E3C]/80 border border-white/10 backdrop-blur
+                           hover:border-[#2EC4B6] hover:bg-[#2EC4B6]/10
+                           transition cursor-pointer group"
+              >
+                <div className="bg-[#2EC4B6]/20 p-2 rounded-lg group-hover:bg-[#2EC4B6] transition">
+                  <item.icon className="w-4 h-4 text-[#2EC4B6] group-hover:text-[#0B1F2A]" />
+                </div>
+                <span className="text-xs md:text-sm font-semibold text-white whitespace-nowrap">
+                  {item.label}
+                </span>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
